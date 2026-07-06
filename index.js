@@ -91,6 +91,40 @@ app.command("/fishwish-catpic", async({ ack, respond }) => {
   }
 });
 
+
+app.command("/fishwish-greet", async({ ack, respond }) => {
+  await ack()
+
+  try {
+    await respond({
+      blocks: [
+        {
+          type: "image",
+          image_url: `https://cataas.com/cat/says/Wassuppp?ts=${Date.now()}`,       
+          alt_text: "A random cat pic"
+        }
+      ]
+    });
+  } catch (err) {
+      await respond({ text: "Failed to fetch a cat fact." });
+  }
+});
+
+app.command("/fishwish-help", async ({ ack, respond }) => {
+  await ack();
+
+  try {
+    await respond({ text: `Thank you for using FishWish!
+      \n/fishwish-ping: See the fish's ping
+      \n/fishwish-catfact: Some neat cat facts to know
+      \n/fishwish-catgif: A cat gif from your imaginations
+      \n/fishwish-catpic: Random cat picture to see
+      \n/fishwish-greet: Greetings sent from our fellow cats
+      \n/fishwish-help: Uhhh, well you just did it` });
+  } catch (err) {
+    await respond({ text: "Failed to fetch a cat fact." });
+  }
+});
 // format
 
 // app.command("/command-name", async ({ ack, respond }) => {
