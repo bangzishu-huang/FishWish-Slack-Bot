@@ -12,3 +12,5 @@ FishWish does feature a couple of commands including:
 - `/fishwish-catfilter` - Cat pictures with random filters thrown onto it
 - `/fishwish-greet` - Get greeted be a cat
 - `/fishwish-help` - The overview for all the commands available
+
+<img width="421" height="136" alt="Screenshot 2026-07-06 at 5 32 45 PM" src="https://github.com/user-attachments/assets/fae603e5-ef34-403b-ba67-535def7c6ef3" />
