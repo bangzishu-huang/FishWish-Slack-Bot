@@ -118,17 +118,19 @@ app.command("/fishwish-greet", async({ ack, respond }) => {
 app.command("/fishwish-catfilter", async({ ack, respond }) => {
   await ack()
 
-  const brightness = Math.floor(Math.random() * 201) - 100;
-  const lightness = Math.floor(Math.random() * 201) - 100;
-  const saturation = Math.floor(Math.random() * 201) - 100;
-  const hue = Math.floor(Math.random() * 201) - 100;
+  const brightness = Math.floor(Math.random() * 41) - 20;
+  const lightness = Math.floor(Math.random() * 41) - 20;
+  const saturation = Math.floor(Math.random() * 41) - 20;
+  const hue = Math.floor(Math.random() * 360);
 
   const imageUrl = `https://cataas.com/cat?filter=custom` +
   `&brightness=${brightness}`+
   `&lightness=${lightness}`+
   `&saturation=${saturation}`+
   `&hue=${hue}`+
-  `$ts=${Date.now()}`;
+  `&$ts=${Date.now()}`;
+
+  console.log(imageUrl);
 
   try {
     await respond({
