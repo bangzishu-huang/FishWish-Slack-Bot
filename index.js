@@ -3,6 +3,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const { App } = require("@slack/bolt");
+const { act } = require("react");
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -10,6 +11,8 @@ const app = new App({
   socketMode: true
 });
 
+
+// ping
 app.command("/fishwish-ping", async ({ command, ack, respond }) => {
   const start = Date.now();
   await ack();
@@ -22,6 +25,8 @@ app.command("/fishwish-ping", async ({ command, ack, respond }) => {
   console.log("bot is running!");
 })();
 
+
+// facts
 app.command("/fishwish-catfact", async ({ ack, respond }) => {
   await ack();
 
@@ -34,6 +39,7 @@ app.command("/fishwish-catfact", async ({ ack, respond }) => {
 });
 
 
+// gifs
 app.command("/fishwish-catgif", async ({ ack, respond }) => {
   await ack();
 
@@ -63,6 +69,16 @@ app.command("/fishwish-catgif", async ({ ack, respond }) => {
   }
 });
 
+
+app.command("/fishwish-catpic", async({ ack, respond }) => {
+  await ack();
+    try {
+      const response = await axios.get("https://cataas.com/cat");
+      await respond({ text: `Cat Picture:\n${response.data.fact}` });
+    } catch (err) {
+      await respond({ text: "Failed to fetch a cat fact." });
+  }
+});
 
 // format
 
