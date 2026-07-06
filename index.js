@@ -85,9 +85,11 @@ app.command("/fishwish-catpic", async({ ack, respond }) => {
       ]
     });
   } catch (err) {
-      console.log("Full error:", err.message);
-      console.log("Error response data:", err.response?.data);
-      console.log("Error response status:", err.response?.status);
+
+      // for debugging
+      // console.log("Full error:", err.message);
+      // console.log("Error response data:", err.response?.data);
+      // console.log("Error response status:", err.response?.status);
       await respond({ text: "Failed to fetch a cat pic." });
   }
 });
@@ -130,7 +132,9 @@ app.command("/fishwish-catfilter", async({ ack, respond }) => {
   `&hue=${hue}`+
   `&ts=${Date.now()}`;
 
-  console.log(imageUrl);
+
+  // for debugging
+  // console.log(imageUrl);
 
   try {
     await respond({
