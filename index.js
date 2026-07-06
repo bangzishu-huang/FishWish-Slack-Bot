@@ -71,25 +71,19 @@ app.command("/fishwish-catgif", async ({ ack, respond }) => {
 
 
 app.command("/fishwish-catpic", async({ ack, respond }) => {
-  await ack();
-    try {
-      const response = await axios.get("https://cataas.com/cat",{
-        headers: {Accept: "application/json"}
-      });
+  await ack()
 
-      const cattData = response.data;
-      const catPicUrl = catData.url
-
-      await respond({
-        blocks: [
-          {
-            type: "image",
-            image_url: catPicUrl,
-            alt_text: "A random cat pic"
-          }
-        ]
-       });
-    } catch (err) {
+  try {
+    await respond({
+      blocks: [
+        {
+          type: "image",
+          image_url: `https://cataas.com/cat?ts=${Date.now()}`,       
+          alt_text: "A random cat pic"
+        }
+      ]
+    });
+  } catch (err) {
       console.log("Full error:", err.message);
       console.log("Error response data:", err.response?.data);
       console.log("Error response status:", err.response?.status);
