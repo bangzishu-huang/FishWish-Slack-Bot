@@ -70,6 +70,7 @@ app.command("/fishwish-catgif", async ({ ack, respond }) => {
 });
 
 
+// picture
 app.command("/fishwish-catpic", async({ ack, respond }) => {
   await ack()
 
@@ -87,11 +88,12 @@ app.command("/fishwish-catpic", async({ ack, respond }) => {
       console.log("Full error:", err.message);
       console.log("Error response data:", err.response?.data);
       console.log("Error response status:", err.response?.status);
-      await respond({ text: "Failed to fetch a cat fact." });
+      await respond({ text: "Failed to fetch a cat pic." });
   }
 });
 
 
+// greeting
 app.command("/fishwish-greet", async({ ack, respond }) => {
   await ack()
 
@@ -101,32 +103,64 @@ app.command("/fishwish-greet", async({ ack, respond }) => {
         {
           type: "image",
           image_url: `https://cataas.com/cat/says/Wassuppp?ts=${Date.now()}`,       
-          alt_text: "A random cat pic"
+          alt_text: "A random cat greeting"
         }
       ]
     });
   } catch (err) {
-      await respond({ text: "Failed to fetch a cat fact." });
+      await respond({ text: "Failed to fetch a cat greeting." });
   }
 });
 
+
+
+// filter
+app.command("/fishwish-catfilter", async({ ack, respond }) => {
+  await ack()
+
+  const brightness = Math.floor(Math.random() * 201) - 100;
+  const lightness = Math.floor(Math.random() * 201) - 100;
+  const saturation = Math.floor(Math.random() * 201) - 100;
+  const hue = Math.floor(Math.random() * 201) - 100;
+
+  const imageUrl = `https://cataas.com/cat?filter=custom` +
+  `&brightness=${brightness}`+
+  `&lightness=${lightness}`+
+  `&saturation=${saturation}`+
+  `&hue=${hue}`+
+  `$ts=${Date.now()}`;
+
+  try {
+    await respond({
+      blocks: [
+        {
+          type: "image",
+          image_url: imageUrl,
+          alt_text: "A random cat pic with filter"
+        }
+      ]
+    });
+  } catch (err) {
+      await respond({ text: "Failed to fetch a cat filter." });
+  }
+});
+
+
+// help
 app.command("/fishwish-help", async ({ ack, respond }) => {
   await ack();
 
   try {
-    await respond({ text: `Thank you for using FishWish!
+    await respond({ text: `Thank you for using FishWish! Below are the commands for FishWish:
+      \n
       \n/fishwish-ping: See the fish's ping
       \n/fishwish-catfact: Some neat cat facts to know
       \n/fishwish-catgif: A cat gif from your imaginations
-      \n/fishwish-catpic: Random cat picture to see
+      \n/fishwish-catpic: Cat pictures to see
+      \n/fishwish-catfilter: Apply random filter on a cat image
       \n/fishwish-greet: Greetings sent from our fellow cats
       \n/fishwish-help: Uhhh, well you just did it` });
   } catch (err) {
     await respond({ text: "Failed to fetch a cat fact." });
   }
 });
-// format
-
-// app.command("/command-name", async ({ ack, respond }) => {
-//   // your code here
-// });
