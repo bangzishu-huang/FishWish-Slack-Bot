@@ -73,9 +73,26 @@ app.command("/fishwish-catgif", async ({ ack, respond }) => {
 app.command("/fishwish-catpic", async({ ack, respond }) => {
   await ack();
     try {
-      const response = await axios.get("https://cataas.com/cat");
-      await respond({ text: `Cat Picture:\n${response.data.fact}` });
+      const response = await axios.get("https://cataas.com/cat",{
+        headers: {Accept: "application/json"}
+      });
+
+      const cattData = response.data;
+      const catPicUrl = catData.url
+
+      await respond({
+        blocks: [
+          {
+            type: "image",
+            image_url: catPicUrl,
+            alt_text: "A random cat pic"
+          }
+        ]
+       });
     } catch (err) {
+      console.log("Full error:", err.message);
+      console.log("Error response data:", err.response?.data);
+      console.log("Error response status:", err.response?.status);
       await respond({ text: "Failed to fetch a cat fact." });
   }
 });
